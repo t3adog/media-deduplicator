@@ -21,8 +21,9 @@ How it works:
 After script finished, you will have you photos and videos without duplicates and organized on directories by year -> month
 
 # dependencies
+Python3 libs: Pillow, imagededup, imagehash, pywt, videohash
 Native applications: exiftool, imagemagick, ffmpeg
 
-# Crosspatform
+# What about crossplatform?
 Writed and tested on Windows WSL. 
 If you have trouble - you can write me.

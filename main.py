@@ -21,13 +21,16 @@ videos = [".MOV", ".MP4"]
 # Init block
 
 work_dir = os.path.join(root_dir, "work")
-work_photos_dir = os.path.join(work_dir, "photos")
-work_videos_dir = os.path.join(work_dir, "videos")
-work_other_dir = os.path.join(work_dir, "other")
+work_extensions_dir = os.path.join(work_dir, "extensions")
+work_types_dir = os.path.join(work_dir, "types")
+work_photos_dir = os.path.join(work_types_dir, "photos")
+work_videos_dir = os.path.join(work_types_dir, "videos")
+work_other_dir = os.path.join(work_types_dir, "other")
 output_dir = os.path.join(root_dir, "output")
 
 os.makedirs(input_dir, exist_ok=True)
 os.makedirs(work_dir, exist_ok=True)
+os.makedirs(work_types_dir, exist_ok=True)
 os.makedirs(work_photos_dir, exist_ok=True)
 os.makedirs(work_videos_dir, exist_ok=True)
 os.makedirs(work_other_dir, exist_ok=True)
@@ -48,7 +51,7 @@ def sort_files_by_extension(path):
         else:
             file_extension = parse_file_extension(abs_path)
 
-            work_dir_for_copy = os.path.join(work_dir, file_extension)
+            work_dir_for_copy = os.path.join(work_extensions_dir, file_extension)
             os.makedirs(work_dir_for_copy, exist_ok=True)
             shutil.copy(abs_path, work_dir_for_copy)
 
@@ -61,8 +64,8 @@ def parse_file_extension(abs_path):
 
 def convert_heic_to_jpg():
     '''Convert heic files to jpg'''
-    dir_with_heic = os.path.join(work_dir, ".HEIC")
-    dir_with_jpeg = os.path.join(work_dir, ".JPG")
+    dir_with_heic = os.path.join(work_extensions_dir, ".HEIC")
+    dir_with_jpeg = os.path.join(work_extensions_dir, ".JPG")
 
     for file in os.listdir(dir_with_heic):
         print("try convert", file)
@@ -129,7 +132,7 @@ def sort_files_by_types(path):
         else:
             file_extension = parse_file_extension(abs_path)
             print("File extension", file_extension)
-            work_dir_for_copy = os.path.join(work_dir, parse_file_type_by_extension(file_extension))
+            work_dir_for_copy = os.path.join(work_types_dir, parse_file_type_by_extension(file_extension))
             print("work_dir_for_copy", work_dir_for_copy)
             os.makedirs(work_dir_for_copy, exist_ok=True)
             shutil.move(abs_path, work_dir_for_copy)
@@ -160,7 +163,7 @@ if __name__ == "__main__":
     start_time = time.time()
     sort_files_by_extension(input_dir)
     convert_heic_to_jpg()
-    sort_files_by_types(work_dir)
+    sort_files_by_types(work_extensions_dir)
     deduplicate_photos()
     sort_photos_by_exif_tool()
     deduplicate_videos()
