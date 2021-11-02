@@ -7,7 +7,6 @@ from videohash import VideoHash
 import os
 import shutil
 import time
-import pyheif
 
 #####################################################################
 # Configuration module
@@ -85,7 +84,7 @@ def convert_heic_to_jpg():
 
 
 def extract_exif(metadata):
-    '''Parse exif from pyheif metadata'''
+    '''Parse exif from file metadata'''
     for meta in metadata:
         if meta["type"] == "Exif":
             return meta["data"]
@@ -144,7 +143,7 @@ def sort_photos_by_exif_tool():
 def sort_videos_by_exif_tool():
     '''Sort videos by date using exiftool'''
     os.system('exiftool -d ' + output_dir +
-              '/%Y/%m "-directory<datetimeoriginal" ' + work_videos_dir + '/*')
+              '/%Y/%m "-directory<CreateDate" ' + work_videos_dir + '/*')
 
 
 def parse_file_type_by_extension(extension):
@@ -165,5 +164,6 @@ if __name__ == "__main__":
     deduplicate_photos()
     sort_photos_by_exif_tool()
     deduplicate_videos()
+    sort_videos_by_exif_tool()
 
     print("--- %s seconds ---" % (time.time() - start_time))
