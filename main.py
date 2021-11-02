@@ -160,15 +160,14 @@ def parse_file_type_by_extension(extension):
 if __name__ == "__main__":
     start_time = time.time()
     print("Step 1. Sort files by extensions")
-    #sort_files_by_extension(input_dir)
+    sort_files_by_extension(input_dir)
     print("Step 2. Convert heic to jpeg")
-    #convert_heic_to_jpg()
+    convert_heic_to_jpg()
     print("Step 3. Sort files by type")
-    #sort_files_by_types(work_dir)
+    sort_files_by_types(work_dir)
     print("Step 4. Deduplicate photos")
-    #deduplicate_photos()
-    # C помощью exiftool рассортировываем фотки по директориям Год -> Месяц
-    #sort_photos_by_exif_tool()
+    deduplicate_photos()
+    sort_photos_by_exif_tool()
     print("Step 4. Deduplicate videos")
     deduplicate_videos()
 
