@@ -12,7 +12,8 @@ import pyheif
 #####################################################################
 # Configuration module
 
-root_dir = "IMPLEMENT_ME!"
+root_dir = "" # IMPLEMENT ME!
+input_dir = os.path.join(root_dir, "source") # Keep your files here
 photos = [".GIF", ".HEIC", ".JPEG", ".JPG", ".PNG", ".TIF"]
 videos = [".MOV", ".MP4"]
 
@@ -20,7 +21,6 @@ videos = [".MOV", ".MP4"]
 
 # Init block
 
-input_dir = os.path.join(root_dir, "source")
 work_dir = os.path.join(root_dir, "work")
 work_photos_dir = os.path.join(work_dir, "photos")
 work_videos_dir = os.path.join(work_dir, "videos")
