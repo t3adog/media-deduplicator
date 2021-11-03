@@ -12,7 +12,7 @@ import time
 #####################################################################
 # Configuration module
 
-root_dir = "" # IMPLEMENT ME!
+root_dir = "/mnt/d/Data" # IMPLEMENT ME!
 input_dir = os.path.join(root_dir, "source") # Keep your files here
 photos = [".GIF", ".HEIC", ".JPEG", ".JPG", ".PNG", ".TIF"]
 videos = [".MOV", ".MP4"]
@@ -97,19 +97,19 @@ def extract_exif(metadata):
 def deduplicate_photos():
     '''Find photo duplicates with PHash and MOVE duplicates to scecial dir'''
     phasher = PHash()
-    dir_with_dublicates = os.path.join(work_dir, "duplicates", "photos")
-    os.makedirs(dir_with_dublicates, exist_ok=True)
+    dir_with_duplicates = os.path.join(work_dir, "duplicates", "photos")
+    os.makedirs(dir_with_duplicates, exist_ok=True)
     encodings = phasher.encode_images(image_dir=work_photos_dir)
     duplicates = phasher.find_duplicates_to_remove(encoding_map=encodings)
     for dublicate in duplicates:
-        shutil.move(os.path.join(work_photos_dir, dublicate), os.path.join(dir_with_dublicates, dublicate))
+        shutil.move(os.path.join(work_photos_dir, dublicate), os.path.join(dir_with_duplicates, dublicate))
 
 def deduplicate_videos():
     '''Find video duplicates with VideoHash and MOVE duplicates to special dir'''
-    dir_with_dublicates = os.path.join(work_dir, "dublicates", "videos")
+    dir_with_duplicates = os.path.join(work_dir, "duplicates", "videos")
     uniq_videos = {}
     duplicates = []
-    os.makedirs(dir_with_dublicates, exist_ok=True)
+    os.makedirs(dir_with_duplicates, exist_ok=True)
     for video in os.listdir(work_videos_dir):
         print("Process ", video)
         videohash = str(VideoHash(path=os.path.join(work_videos_dir, video)))
@@ -119,7 +119,7 @@ def deduplicate_videos():
             uniq_videos[videohash] = video
     
     for duplicate in duplicates:
-        shutil.move(os.path.join(work_videos_dir, duplicate), os.path.join(dir_with_dublicates, duplicate))
+        shutil.move(os.path.join(work_videos_dir, duplicate), os.path.join(dir_with_duplicates, duplicate))
 
 def sort_files_by_types(path):
     print('process ' + path)
@@ -161,13 +161,51 @@ def parse_file_type_by_extension(extension):
 
 
 if __name__ == "__main__":
+    root_time = time.time()
     start_time = time.time()
-    sort_files_by_extension(input_dir)
-    convert_heic_to_jpg()
-    sort_files_by_types(work_extensions_dir)
-    deduplicate_photos()
-    sort_photos_by_exif_tool()
-    deduplicate_videos()
-    sort_videos_by_exif_tool()
 
+    #1
+    print("Step 1: sort_files_by_extension")
+    #sort_files_by_extension(input_dir)
     print("--- %s seconds ---" % (time.time() - start_time))
+    start_time = time.time()
+
+    #2
+    print("Step 2: convert_heic_to_jpg")
+    #convert_heic_to_jpg()
+    print("--- %s seconds ---" % (time.time() - start_time))
+    start_time = time.time()
+
+    #3
+    print("Step 3: sort_files_by_types")
+    #sort_files_by_types(work_extensions_dir)
+    print("--- %s seconds ---" % (time.time() - start_time))
+    start_time = time.time()
+
+    #4
+    print("Step 4: deduplicate_photos")
+    #deduplicate_photos()
+    print("--- %s seconds ---" % (time.time() - start_time))
+    start_time = time.time()
+
+    #5
+    print("Step 5: sort_photos_by_exif_tool")
+    #sort_photos_by_exif_tool()
+    print("--- %s seconds ---" % (time.time() - start_time))
+    start_time = time.time()
+
+    #6
+    print("Step 6: deduplicate_videos")
+    #deduplicate_videos()
+    print("--- %s seconds ---" % (time.time() - start_time))
+    start_time = time.time()
+
+
+    #7
+    print("Step 7: sort_videos_by_exif_tool")
+    sort_videos_by_exif_tool()
+    print("--- %s seconds ---" % (time.time() - start_time))
+
+
+    #8
+    print("--- FIN %s seconds ---" % (time.time() - root_time))
