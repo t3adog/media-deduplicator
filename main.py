@@ -4,6 +4,7 @@ from posixpath import join
 from PIL import Image
 from imagededup.methods import PHash
 from videohash import VideoHash
+import pyheif
 import os
 import shutil
 import time
@@ -71,7 +72,7 @@ def convert_heic_to_jpg():
         print("try convert", file)
         try:
             filename, file_extension = os.path.splitext(file)
-            heif_file = os.path.join(dir_with_heic, file)
+            heif_file = pyheif.read(os.path.join(dir_with_heic, file))
             image = Image.frombytes(
                 heif_file.mode,
                 heif_file.size,
@@ -80,10 +81,10 @@ def convert_heic_to_jpg():
                 heif_file.mode,
                 heif_file.stride,
             )
-            image.save(os.path.join(dir_with_jpeg, filename, ".jpg"), "JPEG", exif=extract_exif(heif_file.metadata))
-            os.remove(os.path(dir_with_heic, file))
-        except Exception:
-            print("Error. Skip.", Exception)
+            image.save(os.path.join(dir_with_jpeg, filename + ".jpg"), "JPEG", exif=extract_exif(heif_file.metadata))
+            os.remove(os.path.join(dir_with_heic, file))
+        except Exception as e:
+            print("Error. Skip.", e)
 
 
 def extract_exif(metadata):
