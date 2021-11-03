@@ -12,7 +12,7 @@ import time
 #####################################################################
 # Configuration module
 
-root_dir = "/mnt/d/Data" # IMPLEMENT ME!
+root_dir = "" # IMPLEMENT ME!
 input_dir = os.path.join(root_dir, "source") # Keep your files here
 photos = [".GIF", ".HEIC", ".JPEG", ".JPG", ".PNG", ".TIF"]
 videos = [".MOV", ".MP4"]
@@ -166,46 +166,44 @@ if __name__ == "__main__":
 
     #1
     print("Step 1: sort_files_by_extension")
-    #sort_files_by_extension(input_dir)
+    sort_files_by_extension(input_dir)
     print("--- %s seconds ---" % (time.time() - start_time))
     start_time = time.time()
 
     #2
     print("Step 2: convert_heic_to_jpg")
-    #convert_heic_to_jpg()
+    convert_heic_to_jpg()
     print("--- %s seconds ---" % (time.time() - start_time))
     start_time = time.time()
 
     #3
     print("Step 3: sort_files_by_types")
-    #sort_files_by_types(work_extensions_dir)
+    sort_files_by_types(work_extensions_dir)
     print("--- %s seconds ---" % (time.time() - start_time))
     start_time = time.time()
 
     #4
     print("Step 4: deduplicate_photos")
-    #deduplicate_photos()
+    deduplicate_photos()
     print("--- %s seconds ---" % (time.time() - start_time))
     start_time = time.time()
 
     #5
     print("Step 5: sort_photos_by_exif_tool")
-    #sort_photos_by_exif_tool()
+    sort_photos_by_exif_tool()
     print("--- %s seconds ---" % (time.time() - start_time))
     start_time = time.time()
 
     #6
     print("Step 6: deduplicate_videos")
-    #deduplicate_videos()
+    deduplicate_videos()
     print("--- %s seconds ---" % (time.time() - start_time))
     start_time = time.time()
-
 
     #7
     print("Step 7: sort_videos_by_exif_tool")
     sort_videos_by_exif_tool()
     print("--- %s seconds ---" % (time.time() - start_time))
-
 
     #8
     print("--- FIN %s seconds ---" % (time.time() - root_time))
