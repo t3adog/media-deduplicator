@@ -1,0 +1,4 @@
+Pillow<7.0.0
+imagededup==0.2.2
+imagehash==4.2.1
+videohash==2.1.2
