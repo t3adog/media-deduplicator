@@ -43,5 +43,5 @@ And install python3 requirement libs:
 
 # What about crossplatform?
 I writed and tested it on Windows WSL. 
-I think this script will work on linux and os x. What about Windows... I think you can try, but better use WSL.
+I think this script will work on linux and OS X. What about Windows... unfortunately this is not possible, because pyheif lib is not available for Windows. You can use WSL.
 If you have trouble or questions - you can write me and I try to help.
