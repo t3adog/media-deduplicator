@@ -1,4 +1,4 @@
-# ⛑ media deduplicator
+# 💩 media deduplicator
 Just a little project for organize your gallery. 
 
 Once all my photos and videos were duplicated three times in a row (because I'm an idiot).
